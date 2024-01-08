@@ -8,6 +8,7 @@ import (
 	"net/http/httputil"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var versionCode = "v0.3"
@@ -23,6 +24,26 @@ func handler(responseToRequest http.ResponseWriter, incomingRequest *http.Reques
 	remote := incomingRequest.RemoteAddr
 
 	log.Printf("Request from %s to host %s and url %s", remote, host, url)
+
+	if strings.contains(url, "nintendowifi") {
+		io.WriteString(responseToRequest, `HTTP/1.1 200 Ok
+Content-Type: text/html
+Date: Mon, 08 Jan 2024 20:33:33 GMT
+Server: ECS (nyb/1DCD)
+Content-Length: 345
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>200 - Ok</title>
+	</head>
+	<body>
+		<h1>200 - Ok</h1>
+	</body>
+</html>`)
+	}
 
 	// Get the raw request bytes
 	requestDump, err := httputil.DumpRequest(incomingRequest, true)
