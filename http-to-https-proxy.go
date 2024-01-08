@@ -25,7 +25,7 @@ func handler(responseToRequest http.ResponseWriter, incomingRequest *http.Reques
 
 	log.Printf("Request from %s to host %s and url %s", remote, host, url)
 
-	if strings.contains(url, "nintendowifi") {
+	if strings.Contains(url, "nintendowifi") {
 		io.WriteString(responseToRequest, `HTTP/1.1 200 Ok
 Content-Type: text/html
 Date: Mon, 08 Jan 2024 20:33:33 GMT
